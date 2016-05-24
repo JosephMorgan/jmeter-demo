@@ -15,6 +15,7 @@
 				<artifactId>jmeter-maven-plugin</artifactId>
 				<version>1.4.1</version>
 				<configuration>
+					<ignoreResultFailures>true</ignoreResultFailures>
 					<testResultsTimestamp>false</testResultsTimestamp>
 				</configuration>
 				<executions>
@@ -27,6 +28,39 @@
 					</execution>
 				</executions>
 			</plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+    			<artifactId>xml-maven-plugin</artifactId>
+    			<version>1.0</version>
+				<executions>
+     				<execution>
+      					<phase>verify</phase>
+      					<goals>
+       						<goal>transform</goal>
+      					</goals>
+     				</execution>
+    			</executions>
+    			<configuration>
+     				<transformationSets>
+      					<transformationSet>
+       						<dir>${project.build.directory}/jmeter/results</dir>
+       						<stylesheet>${project.basedir}/src/main/jmeter-results-report_21.xsl</stylesheet>
+       						<outputDir>${project.build.directory}/jmeter/results</outputDir>
+       						<fileMappers>
+        						<fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
+         							<pattern>(.*?)\s(.*?)</pattern>
+         							<replacement>$1$2</replacement>
+         							<replaceAll>true</replaceAll>
+        						</fileMapper>
+        						<fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+         							<targetExtension>.html</targetExtension>
+        						</fileMapper>
+       						</fileMappers>
+      					</transformationSet>
+     				</transformationSets>
+    			</configuration>
+   			</plugin>
 		</plugins>
 	</build>
 </project>
