@@ -36,17 +36,17 @@
                 <executions>
                     <execution>
                         <phase>verify</phase>
-                            <goals>
-                                <goal>transform</goal>
-                            </goals>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
                     </execution>
                 </executions>
                 <configuration>
                     <transformationSets>
                         <transformationSet>
-                            <dir>${project.build.directory}/jmeter/results</dir>
-                            <stylesheet>${project.basedir}/src/main/jmeter-results-report_21.xsl</stylesheet>
-                            <outputDir>${project.build.directory}/jmeter/results</outputDir>
+                            <dir>target/jmeter/results</dir>
+                            <stylesheet>src/main/jmeter-results-report_21.xsl</stylesheet>
+                            <outputDir>target/jmeter/results</outputDir>
                             <fileMappers>
                                 <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
                                     <pattern>(.*?)\s(.*?)</pattern>
