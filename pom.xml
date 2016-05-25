@@ -7,7 +7,9 @@
     <version>1.0-SNAPSHOT</version>
     <name>jmeter-demo</name>
     <url>http://maven.apache.org</url>
-
+    <properties>
+        <jmeter.fileName>TestAPI</jmeter.fileName>
+    </properties>
     <build>
         <plugins>
             <plugin>
@@ -31,34 +33,24 @@
             
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
-                <artifactId>xml-maven-plugin</artifactId>
-                <version>1.0</version>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.5.0</version>
                 <executions>
                     <execution>
                         <phase>verify</phase>
                         <goals>
-                            <goal>transform</goal>
+                            <goal>exec</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <transformationSets>
-                        <transformationSet>
-                            <dir>target/jmeter/results</dir>
-                            <stylesheet>src/main/jmeter-results-report_21.xsl</stylesheet>
-                            <outputDir>target/jmeter/results</outputDir>
-                            <fileMappers>
-                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
-                                    <pattern>(.*?)\s(.*?)</pattern>
-                                    <replacement>$1$2</replacement>
-                                    <replaceAll>true</replaceAll>
-                                </fileMapper>
-                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
-                                    <targetExtension>.html</targetExtension>
-                                </fileMapper>
-                            </fileMappers>
-                        </transformationSet>
-                    </transformationSets>
+                    <executable>xsltproc</executable>
+                    <arguments>
+                        <argument>-o</argument>
+                        <argument>target/jmeter/results/${jmeter.fileName}.html</argument>
+                        <argument>src/main/jmeter-results-report_21.xsl</argument>
+                        <argument>target/jmeter/results/${jmeter.fileName}.jtl</argument>
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>
