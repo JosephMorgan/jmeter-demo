@@ -48,7 +48,7 @@
                     <arguments>
                         <argument>-o</argument>
                         <argument>target/jmeter/results/${jmeter.fileName}.html</argument>
-                        <argument>src/main/jmeter-results-report_21.xsl</argument>
+                        <argument>src/main/jmeter-results-detail-report.xsl</argument>
                         <argument>target/jmeter/results/${jmeter.fileName}.jtl</argument>
                     </arguments>
                 </configuration>
