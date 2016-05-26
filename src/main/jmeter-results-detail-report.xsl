@@ -30,7 +30,7 @@
 <!-- Defined parameters (overrideable) -->
 <xsl:param    name="showData" select="'n'"/>
 <xsl:param    name="titleReport" select="'Load Test Results'"/>
-<xsl:param    name="dateReport" select="'date not defined'"/>
+<!-- <xsl:param    name="dateReport" select="'date not defined'"/> -->
 
 <xsl:template match="testResults">
 	<html>
@@ -67,63 +67,56 @@
 				.Failure {
 					font-weight:bold; color:red;
 				}
-				
-	
 				img
 				{
-				  border-width: 0px;
+				  	border-width: 0px;
 				}
-				
 				.expand_link
 				{
-				   position=absolute;
-				   right: 0px;
-				   width: 27px;
-				   top: 1px;
-				   height: 27px;
+				   	position=absolute;
+				   	right: 0px;
+				   	width: 27px;
+				   	top: 1px;
+				   	height: 27px;
 				}
-				
 				.page_details
 				{
-				   display: none;
+				   	display: none;
 				}
-                
                 .page_details_expanded
                 {
                 	display: block;
                 	display/* hide this definition from  IE5/6 */: table-row;
                 }
-
-
 			</style>
 			<script language="JavaScript"><![CDATA[
                function expand(details_id)
 			   {
 			      
-			      document.getElementById(details_id).className = "page_details_expanded";
-			      document.getElementById(details_id+"_image").alt = "expand";
+			      	document.getElementById(details_id).className = "page_details_expanded";
+			      	document.getElementById(details_id+"_image").alt = "expand";
 			   }
 			   
 			   function collapse(details_id)
 			   {
 			      
-			      document.getElementById(details_id).className = "page_details";
-			      document.getElementById(details_id+"_image").alt = "collapse";
+			      	document.getElementById(details_id).className = "page_details";
+			      	document.getElementById(details_id+"_image").alt = "collapse";
 			   }
 			   
 			   function change(details_id)
 			   {
-			      if(document.getElementById(details_id+"_image").alt == "collapse")
-			      {
-			         document.getElementById(details_id+"_image").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEALQADQANam36RQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDQ0hOymuu20AAAL5dEVYdENvbW1lbnQATGljZW5zZWQgdG8gdGhlIEFwYWNoZSBTb2Z0d2FyZSBGb3VuZGF0aW9uIChBU0YpIHVuZGVyIG9uZSBvciBtb3JlCmNvbnRyaWJ1dG9yIGxpY2Vuc2UgYWdyZWVtZW50cy4gIFNlZSB0aGUgTk9USUNFIGZpbGUgZGlzdHJpYnV0ZWQgd2l0aAp0aGlzIHdvcmsgZm9yIGFkZGl0aW9uYWwgaW5mb3JtYXRpb24gcmVnYXJkaW5nIGNvcHlyaWdodCBvd25lcnNoaXAuClRoZSBBU0YgbGljZW5zZXMgdGhpcyBmaWxlIHRvIFlvdSB1bmRlciB0aGUgQXBhY2hlIExpY2Vuc2UsIFZlcnNpb24gMi4wCih0aGUgIkxpY2Vuc2UiKTsgeW91IG1heSBub3QgdXNlIHRoaXMgZmlsZSBleGNlcHQgaW4gY29tcGxpYW5jZSB3aXRoCnRoZSBMaWNlbnNlLiAgWW91IG1heSBvYnRhaW4gYSBjb3B5IG9mIHRoZSBMaWNlbnNlIGF0CgogICBodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElDRU5TRS0yLjAKClVubGVzcyByZXF1aXJlZCBieSBhcHBsaWNhYmxlIGxhdyBvciBhZ3JlZWQgdG8gaW4gd3JpdGluZywgc29mdHdhcmUKZGlzdHJpYnV0ZWQgdW5kZXIgdGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElTIiBCQVNJUywKV0lUSE9VVCBXQVJSQU5USUVTIE9SIENPTkRJVElPTlMgT0YgQU5ZIEtJTkQsIGVpdGhlciBleHByZXNzIG9yIGltcGxpZWQuClNlZSB0aGUgTGljZW5zZSBmb3IgdGhlIHNwZWNpZmljIGxhbmd1YWdlIGdvdmVybmluZyBwZXJtaXNzaW9ucyBhbmQKbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2UuhUUAtwAAAC1JREFUOMtjVCtZ9p+BAsDEQCEYNYAKBrAgc252RxKlSb10OfVcwDiakIaDAQDXcQefpMw+jAAAAABJRU5ErkJggg==";
-			         expand(details_id);
-			      }
-			      else
-			      {
-			         document.getElementById(details_id+"_image").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEALQADQANam36RQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDQ0cLbeSRoIAAAL5dEVYdENvbW1lbnQATGljZW5zZWQgdG8gdGhlIEFwYWNoZSBTb2Z0d2FyZSBGb3VuZGF0aW9uIChBU0YpIHVuZGVyIG9uZSBvciBtb3JlCmNvbnRyaWJ1dG9yIGxpY2Vuc2UgYWdyZWVtZW50cy4gIFNlZSB0aGUgTk9USUNFIGZpbGUgZGlzdHJpYnV0ZWQgd2l0aAp0aGlzIHdvcmsgZm9yIGFkZGl0aW9uYWwgaW5mb3JtYXRpb24gcmVnYXJkaW5nIGNvcHlyaWdodCBvd25lcnNoaXAuClRoZSBBU0YgbGljZW5zZXMgdGhpcyBmaWxlIHRvIFlvdSB1bmRlciB0aGUgQXBhY2hlIExpY2Vuc2UsIFZlcnNpb24gMi4wCih0aGUgIkxpY2Vuc2UiKTsgeW91IG1heSBub3QgdXNlIHRoaXMgZmlsZSBleGNlcHQgaW4gY29tcGxpYW5jZSB3aXRoCnRoZSBMaWNlbnNlLiAgWW91IG1heSBvYnRhaW4gYSBjb3B5IG9mIHRoZSBMaWNlbnNlIGF0CgogICBodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElDRU5TRS0yLjAKClVubGVzcyByZXF1aXJlZCBieSBhcHBsaWNhYmxlIGxhdyBvciBhZ3JlZWQgdG8gaW4gd3JpdGluZywgc29mdHdhcmUKZGlzdHJpYnV0ZWQgdW5kZXIgdGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElTIiBCQVNJUywKV0lUSE9VVCBXQVJSQU5USUVTIE9SIENPTkRJVElPTlMgT0YgQU5ZIEtJTkQsIGVpdGhlciBleHByZXNzIG9yIGltcGxpZWQuClNlZSB0aGUgTGljZW5zZSBmb3IgdGhlIHNwZWNpZmljIGxhbmd1YWdlIGdvdmVybmluZyBwZXJtaXNzaW9ucyBhbmQKbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2UuhUUAtwAAADtJREFUOMtjVCtZ9p+BAsDEQCGgrQE3uyMZbnZHDmUvEAMYkaORkH9hQL10OY1cgC0W0G0c7rEwNL0AAJeCEpM4iWKGAAAAAElFTkSuQmCC";
-			         collapse(details_id);
-			      } 
-               }
+			      	if(document.getElementById(details_id+"_image").alt == "collapse")
+			      	{
+			         	document.getElementById(details_id+"_image").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEALQADQANam36RQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDQ0hOymuu20AAAL5dEVYdENvbW1lbnQATGljZW5zZWQgdG8gdGhlIEFwYWNoZSBTb2Z0d2FyZSBGb3VuZGF0aW9uIChBU0YpIHVuZGVyIG9uZSBvciBtb3JlCmNvbnRyaWJ1dG9yIGxpY2Vuc2UgYWdyZWVtZW50cy4gIFNlZSB0aGUgTk9USUNFIGZpbGUgZGlzdHJpYnV0ZWQgd2l0aAp0aGlzIHdvcmsgZm9yIGFkZGl0aW9uYWwgaW5mb3JtYXRpb24gcmVnYXJkaW5nIGNvcHlyaWdodCBvd25lcnNoaXAuClRoZSBBU0YgbGljZW5zZXMgdGhpcyBmaWxlIHRvIFlvdSB1bmRlciB0aGUgQXBhY2hlIExpY2Vuc2UsIFZlcnNpb24gMi4wCih0aGUgIkxpY2Vuc2UiKTsgeW91IG1heSBub3QgdXNlIHRoaXMgZmlsZSBleGNlcHQgaW4gY29tcGxpYW5jZSB3aXRoCnRoZSBMaWNlbnNlLiAgWW91IG1heSBvYnRhaW4gYSBjb3B5IG9mIHRoZSBMaWNlbnNlIGF0CgogICBodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElDRU5TRS0yLjAKClVubGVzcyByZXF1aXJlZCBieSBhcHBsaWNhYmxlIGxhdyBvciBhZ3JlZWQgdG8gaW4gd3JpdGluZywgc29mdHdhcmUKZGlzdHJpYnV0ZWQgdW5kZXIgdGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElTIiBCQVNJUywKV0lUSE9VVCBXQVJSQU5USUVTIE9SIENPTkRJVElPTlMgT0YgQU5ZIEtJTkQsIGVpdGhlciBleHByZXNzIG9yIGltcGxpZWQuClNlZSB0aGUgTGljZW5zZSBmb3IgdGhlIHNwZWNpZmljIGxhbmd1YWdlIGdvdmVybmluZyBwZXJtaXNzaW9ucyBhbmQKbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2UuhUUAtwAAAC1JREFUOMtjVCtZ9p+BAsDEQCEYNYAKBrAgc252RxKlSb10OfVcwDiakIaDAQDXcQefpMw+jAAAAABJRU5ErkJggg==";
+			         	expand(details_id);
+			      	}
+			      	else
+			     	{
+			         	document.getElementById(details_id+"_image").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEALQADQANam36RQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDQ0cLbeSRoIAAAL5dEVYdENvbW1lbnQATGljZW5zZWQgdG8gdGhlIEFwYWNoZSBTb2Z0d2FyZSBGb3VuZGF0aW9uIChBU0YpIHVuZGVyIG9uZSBvciBtb3JlCmNvbnRyaWJ1dG9yIGxpY2Vuc2UgYWdyZWVtZW50cy4gIFNlZSB0aGUgTk9USUNFIGZpbGUgZGlzdHJpYnV0ZWQgd2l0aAp0aGlzIHdvcmsgZm9yIGFkZGl0aW9uYWwgaW5mb3JtYXRpb24gcmVnYXJkaW5nIGNvcHlyaWdodCBvd25lcnNoaXAuClRoZSBBU0YgbGljZW5zZXMgdGhpcyBmaWxlIHRvIFlvdSB1bmRlciB0aGUgQXBhY2hlIExpY2Vuc2UsIFZlcnNpb24gMi4wCih0aGUgIkxpY2Vuc2UiKTsgeW91IG1heSBub3QgdXNlIHRoaXMgZmlsZSBleGNlcHQgaW4gY29tcGxpYW5jZSB3aXRoCnRoZSBMaWNlbnNlLiAgWW91IG1heSBvYnRhaW4gYSBjb3B5IG9mIHRoZSBMaWNlbnNlIGF0CgogICBodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElDRU5TRS0yLjAKClVubGVzcyByZXF1aXJlZCBieSBhcHBsaWNhYmxlIGxhdyBvciBhZ3JlZWQgdG8gaW4gd3JpdGluZywgc29mdHdhcmUKZGlzdHJpYnV0ZWQgdW5kZXIgdGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElTIiBCQVNJUywKV0lUSE9VVCBXQVJSQU5USUVTIE9SIENPTkRJVElPTlMgT0YgQU5ZIEtJTkQsIGVpdGhlciBleHByZXNzIG9yIGltcGxpZWQuClNlZSB0aGUgTGljZW5zZSBmb3IgdGhlIHNwZWNpZmljIGxhbmd1YWdlIGdvdmVybmluZyBwZXJtaXNzaW9ucyBhbmQKbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2UuhUUAtwAAADtJREFUOMtjVCtZ9p+BAsDEQCGgrQE3uyMZbnZHDmUvEAMYkaORkH9hQL10OY1cgC0W0G0c7rEwNL0AAJeCEpM4iWKGAAAAAElFTkSuQmCC";
+			         	collapse(details_id);
+			      	} 
+               	}
 			]]></script>
 		</head>
 		<body>
@@ -144,12 +137,12 @@
 
 <xsl:template name="pageHeader">
 	<h1><xsl:value-of select="$titleReport" /></h1>
-	<table width="100%">
+	<!-- <table width="100%">
 		<tr>
 			<td align="left">Date report: <xsl:value-of select="$dateReport" /></td>
 			<td align="right">Designed for use with <a href="http://jmeter.apache.org/">JMeter</a> and <a href="http://ant.apache.org">Ant</a>.</td>
 		</tr>
-	</table>
+	</table> -->
 	<hr size="1" />
 </xsl:template>
 
@@ -167,8 +160,8 @@
 			<th>90% Line</th>
 			<th>95% Line</th>
 			<th>99% Line</th>
-			<!-- <th>QPS</th>
-			<th>Throughput KB</th> -->
+			<th>QPS</th>
+			<th>Throughput KB</th>
 		</tr>
 		<tr valign="top">
 			<xsl:variable name="allCount" select="count(/testResults/*)" />
@@ -211,18 +204,24 @@
 					<xsl:with-param name="position" select="ceiling($allCount * 0.99)" />
 				</xsl:call-template>
 			</xsl:variable>
-			<!-- <xsl:variable name="allNodeThroughput">
-				<xsl:call-template name="throughput">
-					<xsl:with-param name="nodes" select="/testResults/*/@ts" />
-					<xsl:with-param name="count" select="$allCount" />
-				</xsl:call-template>
+			<xsl:variable name="allEndTime">
+				<xsl:for-each select="/testResults/*/@ts">
+					<xsl:sort data-type="number" order="descending"  />
+					<xsl:if test="position() = 1">
+						<xsl:value-of select="number(.)+number(../@t)" />
+					</xsl:if>
+				</xsl:for-each>
 			</xsl:variable>
-			<xsl:variable name="allNodeKB">
-				<xsl:call-template name="throughput">
-					<xsl:with-param name="nodes" select="/testResults/*/@ts" />
-					<xsl:with-param name="count" select="sum(/testResults/*/@by) div 1024" />
-				</xsl:call-template>
-			</xsl:variable> -->
+			<xsl:variable name="allBeginTime">
+				<xsl:for-each select="/testResults/*/@ts">
+					<xsl:sort data-type="number" order="descending" />
+					<xsl:if test="position() = $allCount">
+						<xsl:value-of select="number(.)" />
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:variable name="allNodeThroughput" select="$allCount div (number($allEndTime)-number($allBeginTime)) * 1000" />
+			<xsl:variable name="allNodeKB" select="(sum(/testResults/*/@by) div 1024) div (number($allEndTime)-number($allBeginTime)) * 1000" />
 			<xsl:attribute name="class">
 				<xsl:choose>
 					<xsl:when test="$allFailureCount &gt; 0">Failure</xsl:when>
@@ -274,16 +273,16 @@
 					<xsl:with-param name="value" select="$allNinetyNineLineTime" />
 				</xsl:call-template>
 			</td>
-			<!-- <td align="right">
-				<xsl:call-template name="display-pertime">
+			<td align="right">
+				<xsl:call-template name="display-persecond">
 					<xsl:with-param name="value" select="$allNodeThroughput" />
 				</xsl:call-template>
 			</td>
 			<td align="right">
-				<xsl:call-template name="display-pertime">
+				<xsl:call-template name="display-persecond">
 					<xsl:with-param name="value" select="$allNodeKB" />
 				</xsl:call-template>
-			</td> -->
+			</td>
 		</tr>
 	</table>
 </xsl:template>
@@ -303,8 +302,8 @@
 			<th>90% Line</th>
 			<th>95% Line</th>
 			<th>99% Line</th>
-			<!-- <th>QPS</th>
-			<th>Throughput KB</th> -->
+			<th>QPS</th>
+			<th>Throughput KB</th>
 			<th></th>
 		</tr>
 		<xsl:for-each select="/testResults/*[not(@lb = preceding::*/@lb)]">
@@ -349,18 +348,24 @@
 					<xsl:with-param name="position" select="ceiling($count * 0.99)" />
 				</xsl:call-template>
 			</xsl:variable>
-			<!-- <xsl:variable name="nodeThroughput">
-				<xsl:call-template name="throughput">
-					<xsl:with-param name="nodes" select="../*[@lb = current()/@lb]/@ts" />
-					<xsl:with-param name="count" select="$count" />
-				</xsl:call-template>
+			<xsl:variable name="endTime">
+				<xsl:for-each select="../*[@lb = current()/@lb]/@ts">
+					<xsl:sort data-type="number" order="descending"  />
+					<xsl:if test="position() = 1">
+						<xsl:value-of select="number(.)+number(../@t)" />
+					</xsl:if>
+				</xsl:for-each>
 			</xsl:variable>
-			<xsl:variable name="nodeKB">
-				<xsl:call-template name="throughput">
-					<xsl:with-param name="nodes" select="../*[@lb = current()/@lb]/@ts" />
-					<xsl:with-param name="count" select="sum(../*[@lb = current()/@lb]/@by) div 1024" />
-				</xsl:call-template>
-			</xsl:variable> -->
+			<xsl:variable name="beginTime">
+				<xsl:for-each select="../*[@lb = current()/@lb]/@ts">
+					<xsl:sort data-type="number" order="descending" />
+					<xsl:if test="position() = $count">
+						<xsl:value-of select="number(.)" />
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:variable name="nodeThroughput" select="$count div (number($endTime)-number($beginTime)) * 1000" />
+			<xsl:variable name="nodeKB" select="(sum(../*[@lb = current()/@lb]/@by) div 1024) div (number($endTime)-number($beginTime)) * 1000" />
 			<tr valign="top">
 				<xsl:attribute name="class">
 					<xsl:choose>
@@ -423,16 +428,16 @@
 						<xsl:with-param name="value" select="$ninetyNineLineTime" />
 					</xsl:call-template>
 				</td>
-				<!-- <td align="right">
-					<xsl:call-template name="display-pertime">
+				<td align="center">
+					<xsl:call-template name="display-persecond">
 						<xsl:with-param name="value" select="$nodeThroughput" />
 					</xsl:call-template>
 				</td>
 				<td align="right">
-					<xsl:call-template name="display-pertime">
+					<xsl:call-template name="display-persecond">
 						<xsl:with-param name="value" select="$nodeKB" />
 					</xsl:call-template>
-				</td> -->
+				</td>
 				<td align="center">
 				   <a href="">
 				      <xsl:attribute name="href"><xsl:text/>javascript:change('page_details_<xsl:value-of select="position()" />')</xsl:attribute>
@@ -562,16 +567,6 @@
 	</xsl:choose>
 </xsl:template>
 
-<!-- <xsl:template name="throughput">
-	<xsl:param name="nodes" select="/.." />
-	<xsl:param name="count" select="/.." />
-	<xsl:choose>
-		<xsl:when test="not($nodes)">NaN</xsl:when>
-		<xsl:otherwise>
-		</xsl:otherwise>
-	</xsl:choose>
-</xsl:template> -->
-
 <xsl:template name="display-percent">
 	<xsl:param name="value" />
 	<xsl:value-of select="format-number($value,'0.00%')" />
@@ -582,9 +577,9 @@
 	<xsl:value-of select="format-number($value,'0 ms')" />
 </xsl:template>
 
-<!-- <xsl:template name="display-pertime">
+<xsl:template name="display-persecond">
 	<xsl:param name="value" />
 	<xsl:value-of select="format-number($value, '0.00 /s')" />
-</xsl:template> -->
+</xsl:template>
 
 </xsl:stylesheet>
