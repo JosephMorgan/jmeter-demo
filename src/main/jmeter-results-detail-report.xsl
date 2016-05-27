@@ -37,86 +37,54 @@
         <head>
             <title><xsl:value-of select="$titleReport" /></title>
             <style type="text/css">
-                body {
-                    font:normal 68% verdana,arial,helvetica;
-                    color:#000000;
-                }
-                table tr td, table tr th {
-                    font-size: 68%;
-                }
-                table.details tr th{
-                    color: #ffffff;
-                    font-weight: bold;
-                    text-align:center;
-                    background:#2674a6;
-                    white-space: pre-wrap;
-                }
-                table.details tr td{
-                    background:#eeeee0;
-                    white-space: pre-wrap;
-                }
-                h1 {
-                    margin: 0px 0px 5px; font: 165% verdana,arial,helvetica
-                }
-                h2 {
-                    margin-top: 1em; margin-bottom: 0.5em; font: bold 125% verdana,arial,helvetica
-                }
-                h3 {
-                    margin-bottom: 0.5em; font: bold 115% verdana,arial,helvetica
-                }
-                .Failure {
-                    font-weight:bold; color:red;
-                }
-                img
-                {
-                    border-width: 0px;
-                }
-                .expand_link
-                {
-                    position=absolute;
-                    right: 0px;
-                    width: 27px;
-                    top: 1px;
-                    height: 27px;
-                }
-                .page_details
-                {
-                    display: none;
-                }
-                .page_details_expanded
-                {
-                    display: block;
-                    display/* hide this definition from  IE5/6 */: table-row;
-                }
+                body { font:normal 68% verdana,arial,helvetica; color:#000000; }
+                table tr td, table tr th { font-size: 68%; }
+                table.details tr th { color: #ffffff; font-weight: bold; text-align:center; background:#2674a6; white-space: pre-wrap; }
+                table.details tr td { background:#eeeee0; white-space: pre-wrap; }
+                h1 { margin: 0px 0px 5px; font: 165% verdana,arial,helvetica }
+                h2 { margin-top: 1em; margin-bottom: 0.5em; font: bold 125% verdana,arial,helvetica }
+                h3 { margin-bottom: 0.5em; font: bold 115% verdana,arial,helvetica }
+                .Failure { font-weight:bold; color:red; }
+                img { border-width: 0px; }
+                .expand_link { position=absolute; right: 0px; width: 27px; top: 1px; height: 27px; }
+                .page_details { display: none; } 
+                .page_details_expanded { display: block; display/* hide this definition from  IE5/6 */: table-row; }
+                .key { min-width: 108px; }
+                .detail { display: none; }
             </style>
             <script language="JavaScript"><![CDATA[
-               function expand(details_id)
-               {
-                  
-                    document.getElementById(details_id).className = "page_details_expanded";
-                    document.getElementById(details_id+"_image").alt = "expand";
-               }
-               
-               function collapse(details_id)
-               {
-                  
-                    document.getElementById(details_id).className = "page_details";
-                    document.getElementById(details_id+"_image").alt = "collapse";
-               }
-               
-               function change(details_id)
-               {
-                    if(document.getElementById(details_id+"_image").alt == "collapse")
-                    {
-                        document.getElementById(details_id+"_image").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEALQADQANam36RQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDQ0hOymuu20AAAL5dEVYdENvbW1lbnQATGljZW5zZWQgdG8gdGhlIEFwYWNoZSBTb2Z0d2FyZSBGb3VuZGF0aW9uIChBU0YpIHVuZGVyIG9uZSBvciBtb3JlCmNvbnRyaWJ1dG9yIGxpY2Vuc2UgYWdyZWVtZW50cy4gIFNlZSB0aGUgTk9USUNFIGZpbGUgZGlzdHJpYnV0ZWQgd2l0aAp0aGlzIHdvcmsgZm9yIGFkZGl0aW9uYWwgaW5mb3JtYXRpb24gcmVnYXJkaW5nIGNvcHlyaWdodCBvd25lcnNoaXAuClRoZSBBU0YgbGljZW5zZXMgdGhpcyBmaWxlIHRvIFlvdSB1bmRlciB0aGUgQXBhY2hlIExpY2Vuc2UsIFZlcnNpb24gMi4wCih0aGUgIkxpY2Vuc2UiKTsgeW91IG1heSBub3QgdXNlIHRoaXMgZmlsZSBleGNlcHQgaW4gY29tcGxpYW5jZSB3aXRoCnRoZSBMaWNlbnNlLiAgWW91IG1heSBvYnRhaW4gYSBjb3B5IG9mIHRoZSBMaWNlbnNlIGF0CgogICBodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElDRU5TRS0yLjAKClVubGVzcyByZXF1aXJlZCBieSBhcHBsaWNhYmxlIGxhdyBvciBhZ3JlZWQgdG8gaW4gd3JpdGluZywgc29mdHdhcmUKZGlzdHJpYnV0ZWQgdW5kZXIgdGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElTIiBCQVNJUywKV0lUSE9VVCBXQVJSQU5USUVTIE9SIENPTkRJVElPTlMgT0YgQU5ZIEtJTkQsIGVpdGhlciBleHByZXNzIG9yIGltcGxpZWQuClNlZSB0aGUgTGljZW5zZSBmb3IgdGhlIHNwZWNpZmljIGxhbmd1YWdlIGdvdmVybmluZyBwZXJtaXNzaW9ucyBhbmQKbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2UuhUUAtwAAAC1JREFUOMtjVCtZ9p+BAsDEQCEYNYAKBrAgc252RxKlSb10OfVcwDiakIaDAQDXcQefpMw+jAAAAABJRU5ErkJggg==";
-                         expand(details_id);
-                    }
-                    else
-                    {
-                        document.getElementById(details_id+"_image").src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEALQADQANam36RQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDQ0cLbeSRoIAAAL5dEVYdENvbW1lbnQATGljZW5zZWQgdG8gdGhlIEFwYWNoZSBTb2Z0d2FyZSBGb3VuZGF0aW9uIChBU0YpIHVuZGVyIG9uZSBvciBtb3JlCmNvbnRyaWJ1dG9yIGxpY2Vuc2UgYWdyZWVtZW50cy4gIFNlZSB0aGUgTk9USUNFIGZpbGUgZGlzdHJpYnV0ZWQgd2l0aAp0aGlzIHdvcmsgZm9yIGFkZGl0aW9uYWwgaW5mb3JtYXRpb24gcmVnYXJkaW5nIGNvcHlyaWdodCBvd25lcnNoaXAuClRoZSBBU0YgbGljZW5zZXMgdGhpcyBmaWxlIHRvIFlvdSB1bmRlciB0aGUgQXBhY2hlIExpY2Vuc2UsIFZlcnNpb24gMi4wCih0aGUgIkxpY2Vuc2UiKTsgeW91IG1heSBub3QgdXNlIHRoaXMgZmlsZSBleGNlcHQgaW4gY29tcGxpYW5jZSB3aXRoCnRoZSBMaWNlbnNlLiAgWW91IG1heSBvYnRhaW4gYSBjb3B5IG9mIHRoZSBMaWNlbnNlIGF0CgogICBodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElDRU5TRS0yLjAKClVubGVzcyByZXF1aXJlZCBieSBhcHBsaWNhYmxlIGxhdyBvciBhZ3JlZWQgdG8gaW4gd3JpdGluZywgc29mdHdhcmUKZGlzdHJpYnV0ZWQgdW5kZXIgdGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElTIiBCQVNJUywKV0lUSE9VVCBXQVJSQU5USUVTIE9SIENPTkRJVElPTlMgT0YgQU5ZIEtJTkQsIGVpdGhlciBleHByZXNzIG9yIGltcGxpZWQuClNlZSB0aGUgTGljZW5zZSBmb3IgdGhlIHNwZWNpZmljIGxhbmd1YWdlIGdvdmVybmluZyBwZXJtaXNzaW9ucyBhbmQKbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2UuhUUAtwAAADtJREFUOMtjVCtZ9p+BAsDEQCGgrQE3uyMZbnZHDmUvEAMYkaORkH9hQL10OY1cgC0W0G0c7rEwNL0AAJeCEpM4iWKGAAAAAElFTkSuQmCC";
-                         collapse(details_id);
+                function toggle_details(details_id) {
+                    var objImg = document.getElementById(details_id+"_image");
+                    var objTable = document.getElementById(details_id);
+                    if(objImg.alt == "collapse") {
+                        objImg.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEALQADQANam36RQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDQ0hOymuu20AAAL5dEVYdENvbW1lbnQATGljZW5zZWQgdG8gdGhlIEFwYWNoZSBTb2Z0d2FyZSBGb3VuZGF0aW9uIChBU0YpIHVuZGVyIG9uZSBvciBtb3JlCmNvbnRyaWJ1dG9yIGxpY2Vuc2UgYWdyZWVtZW50cy4gIFNlZSB0aGUgTk9USUNFIGZpbGUgZGlzdHJpYnV0ZWQgd2l0aAp0aGlzIHdvcmsgZm9yIGFkZGl0aW9uYWwgaW5mb3JtYXRpb24gcmVnYXJkaW5nIGNvcHlyaWdodCBvd25lcnNoaXAuClRoZSBBU0YgbGljZW5zZXMgdGhpcyBmaWxlIHRvIFlvdSB1bmRlciB0aGUgQXBhY2hlIExpY2Vuc2UsIFZlcnNpb24gMi4wCih0aGUgIkxpY2Vuc2UiKTsgeW91IG1heSBub3QgdXNlIHRoaXMgZmlsZSBleGNlcHQgaW4gY29tcGxpYW5jZSB3aXRoCnRoZSBMaWNlbnNlLiAgWW91IG1heSBvYnRhaW4gYSBjb3B5IG9mIHRoZSBMaWNlbnNlIGF0CgogICBodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElDRU5TRS0yLjAKClVubGVzcyByZXF1aXJlZCBieSBhcHBsaWNhYmxlIGxhdyBvciBhZ3JlZWQgdG8gaW4gd3JpdGluZywgc29mdHdhcmUKZGlzdHJpYnV0ZWQgdW5kZXIgdGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElTIiBCQVNJUywKV0lUSE9VVCBXQVJSQU5USUVTIE9SIENPTkRJVElPTlMgT0YgQU5ZIEtJTkQsIGVpdGhlciBleHByZXNzIG9yIGltcGxpZWQuClNlZSB0aGUgTGljZW5zZSBmb3IgdGhlIHNwZWNpZmljIGxhbmd1YWdlIGdvdmVybmluZyBwZXJtaXNzaW9ucyBhbmQKbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2UuhUUAtwAAAC1JREFUOMtjVCtZ9p+BAsDEQCEYNYAKBrAgc252RxKlSb10OfVcwDiakIaDAQDXcQefpMw+jAAAAABJRU5ErkJggg==";
+                        objImg.alt = "expand";
+                        objTable.className = "page_details_expanded";
+                    } else {
+                        objImg.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEALQADQANam36RQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDQ0cLbeSRoIAAAL5dEVYdENvbW1lbnQATGljZW5zZWQgdG8gdGhlIEFwYWNoZSBTb2Z0d2FyZSBGb3VuZGF0aW9uIChBU0YpIHVuZGVyIG9uZSBvciBtb3JlCmNvbnRyaWJ1dG9yIGxpY2Vuc2UgYWdyZWVtZW50cy4gIFNlZSB0aGUgTk9USUNFIGZpbGUgZGlzdHJpYnV0ZWQgd2l0aAp0aGlzIHdvcmsgZm9yIGFkZGl0aW9uYWwgaW5mb3JtYXRpb24gcmVnYXJkaW5nIGNvcHlyaWdodCBvd25lcnNoaXAuClRoZSBBU0YgbGljZW5zZXMgdGhpcyBmaWxlIHRvIFlvdSB1bmRlciB0aGUgQXBhY2hlIExpY2Vuc2UsIFZlcnNpb24gMi4wCih0aGUgIkxpY2Vuc2UiKTsgeW91IG1heSBub3QgdXNlIHRoaXMgZmlsZSBleGNlcHQgaW4gY29tcGxpYW5jZSB3aXRoCnRoZSBMaWNlbnNlLiAgWW91IG1heSBvYnRhaW4gYSBjb3B5IG9mIHRoZSBMaWNlbnNlIGF0CgogICBodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElDRU5TRS0yLjAKClVubGVzcyByZXF1aXJlZCBieSBhcHBsaWNhYmxlIGxhdyBvciBhZ3JlZWQgdG8gaW4gd3JpdGluZywgc29mdHdhcmUKZGlzdHJpYnV0ZWQgdW5kZXIgdGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElTIiBCQVNJUywKV0lUSE9VVCBXQVJSQU5USUVTIE9SIENPTkRJVElPTlMgT0YgQU5ZIEtJTkQsIGVpdGhlciBleHByZXNzIG9yIGltcGxpZWQuClNlZSB0aGUgTGljZW5zZSBmb3IgdGhlIHNwZWNpZmljIGxhbmd1YWdlIGdvdmVybmluZyBwZXJtaXNzaW9ucyBhbmQKbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2UuhUUAtwAAADtJREFUOMtjVCtZ9p+BAsDEQCGgrQE3uyMZbnZHDmUvEAMYkaORkH9hQL10OY1cgC0W0G0c7rEwNL0AAJeCEpM4iWKGAAAAAElFTkSuQmCC";
+                        objImg.alt = "collapse";
+                        objTable.className = "page_details";
+                        var arrTable = document.getElementsByClassName("detail");
+                        for (var i=0; i<arrTable.length; i++) {
+                            arrTable[i].style.display = "none";
+                        }
                     } 
-                }
+                };
+                function toggle_detail(detail_id) {
+                    var arrTable = document.getElementsByClassName("detail");
+                    for (var i=0; i<arrTable.length; i++) {
+                        var table = arrTable[i];
+                        if (table.id != detail_id) {
+                            table.style.display = "none";
+                        } else {
+                            if (table.style.display == "none" || table.style.display == "") {
+                                table.style.display = "block";
+                            } else {
+                                table.style.display = "none";
+                            }
+                        }
+                    }
+                };
             ]]></script>
         </head>
         <body>
@@ -373,14 +341,7 @@
                     </xsl:choose>
                 </xsl:attribute>
                 <td>
-                <xsl:if test="$failureCount > 0">
-                  <a><xsl:attribute name="href">#<xsl:value-of select="$label" /></xsl:attribute>
                   <xsl:value-of select="$label" />
-                  </a>
-                </xsl:if>
-                <xsl:if test="0 >= $failureCount">
-                  <xsl:value-of select="$label" />
-                </xsl:if>
                 </td>
                 <td align="center">
                     <xsl:value-of select="$count" />
@@ -440,7 +401,7 @@
                 </td>
                 <td align="center">
                    <a href="">
-                      <xsl:attribute name="href"><xsl:text/>javascript:change('page_details_<xsl:value-of select="position()" />')</xsl:attribute>
+                      <xsl:attribute name="href"><xsl:text/>javascript:toggle_details('page_details_<xsl:value-of select="position()" />')</xsl:attribute>
                       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAAZiS0dEALQADQANam36RQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wDDQ0cLbeSRoIAAAL5dEVYdENvbW1lbnQATGljZW5zZWQgdG8gdGhlIEFwYWNoZSBTb2Z0d2FyZSBGb3VuZGF0aW9uIChBU0YpIHVuZGVyIG9uZSBvciBtb3JlCmNvbnRyaWJ1dG9yIGxpY2Vuc2UgYWdyZWVtZW50cy4gIFNlZSB0aGUgTk9USUNFIGZpbGUgZGlzdHJpYnV0ZWQgd2l0aAp0aGlzIHdvcmsgZm9yIGFkZGl0aW9uYWwgaW5mb3JtYXRpb24gcmVnYXJkaW5nIGNvcHlyaWdodCBvd25lcnNoaXAuClRoZSBBU0YgbGljZW5zZXMgdGhpcyBmaWxlIHRvIFlvdSB1bmRlciB0aGUgQXBhY2hlIExpY2Vuc2UsIFZlcnNpb24gMi4wCih0aGUgIkxpY2Vuc2UiKTsgeW91IG1heSBub3QgdXNlIHRoaXMgZmlsZSBleGNlcHQgaW4gY29tcGxpYW5jZSB3aXRoCnRoZSBMaWNlbnNlLiAgWW91IG1heSBvYnRhaW4gYSBjb3B5IG9mIHRoZSBMaWNlbnNlIGF0CgogICBodHRwOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElDRU5TRS0yLjAKClVubGVzcyByZXF1aXJlZCBieSBhcHBsaWNhYmxlIGxhdyBvciBhZ3JlZWQgdG8gaW4gd3JpdGluZywgc29mdHdhcmUKZGlzdHJpYnV0ZWQgdW5kZXIgdGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElTIiBCQVNJUywKV0lUSE9VVCBXQVJSQU5USUVTIE9SIENPTkRJVElPTlMgT0YgQU5ZIEtJTkQsIGVpdGhlciBleHByZXNzIG9yIGltcGxpZWQuClNlZSB0aGUgTGljZW5zZSBmb3IgdGhlIHNwZWNpZmljIGxhbmd1YWdlIGdvdmVybmluZyBwZXJtaXNzaW9ucyBhbmQKbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2UuhUUAtwAAADtJREFUOMtjVCtZ9p+BAsDEQCGgrQE3uyMZbnZHDmUvEAMYkaORkH9hQL10OY1cgC0W0G0c7rEwNL0AAJeCEpM4iWKGAAAAAElFTkSuQmCC" alt="collapse"><xsl:attribute name="id"><xsl:text/>page_details_<xsl:value-of select="position()" />_image</xsl:attribute></img>                      
                    </a>
                 </td>
@@ -455,22 +416,22 @@
                          <tr>
                             <th>Thread</th>
                             <th>Iteration</th>
-                            <!-- <th>DateType</th> -->
                             <th>Time</th>
                             <th>Bytes</th>
-                            <!-- <th>Response</th> -->
                             <th>Success</th>
                         </tr>
                                       
                         <xsl:for-each select="../*[@lb = $label and @tn != $label]">                                             
                             <tr>
-                               <td align="center"><xsl:value-of select="@tn" /></td>
+                               <td align="center">
+                                       <a><xsl:attribute name="href"><xsl:text/>javascript:toggle_detail('<xsl:text/><xsl:value-of select="@lb" />_detail_<xsl:value-of select="position()" />')</xsl:attribute>
+                                       <xsl:value-of select="@tn" />
+                                       </a>
+                               </td>
                                <td align="center"><xsl:value-of select="position()" /></td>
-                               <!-- <td align="center"><xsl:value-of select="@dt" /></td> -->
                                <td align="center"><xsl:value-of select="format-number(@t, '0 ms')" /></td>
                                <!--  TODO allow for missing bytes field -->
                                <td align="center"><xsl:value-of select="@by" /></td>
-                               <!-- <td align="center"><xsl:value-of select="@rc | @rs" /> - <xsl:value-of select="@rm" /></td> -->
                                <td align="center"><xsl:value-of select="@s" /></td>
                             </tr>
                         </xsl:for-each>
@@ -483,42 +444,29 @@
 </xsl:template>
 
 <xsl:template name="detail">
-    <xsl:variable name="allFailureCount" select="count(/testResults/*[attribute::s='false'])" />
-
-    <xsl:if test="$allFailureCount > 0">
-        <h2>Failure Detail</h2>
-
-        <xsl:for-each select="/testResults/*[not(@lb = preceding::*/@lb)]">
-
-            <xsl:variable name="failureCount" select="count(../*[@lb = current()/@lb][attribute::s='false'])" />
-
-            <xsl:if test="$failureCount > 0">
-                <h3><xsl:value-of select="@lb" /><a><xsl:attribute name="name"><xsl:value-of select="@lb" /></xsl:attribute></a></h3>
-
-                <table align="center" class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
-                <tr valign="top">
-                    <th>Response</th>
-                    <th>Failure Message</th>
-                    <xsl:if test="$showData = 'y'">
-                       <th>Response Data</th>
-                    </xsl:if>
-                </tr>
-            
-                <xsl:for-each select="/testResults/*[@lb = current()/@lb][attribute::s='false']">
-                    <tr>
-                        <td><xsl:value-of select="@rc | @rs" /> - <xsl:value-of select="@rm" /></td>
-                        <td><xsl:value-of select="assertionResult/failureMessage" /></td>
-                        <xsl:if test="$showData = 'y'">
-                            <td><xsl:value-of select="./binary" /></td>
-                        </xsl:if>
-                    </tr>
-                </xsl:for-each>
-                
-                </table>
-            </xsl:if>
-
-        </xsl:for-each>
-    </xsl:if>
+    <xsl:for-each select="/testResults/*[not(@lb = preceding::*/@lb)]">
+        <xsl:for-each select="/testResults/*[@lb = current()/@lb]">
+            <table align="center" class="details detail" border="0" cellpadding="5" cellspacing="2" width="95%">
+                <xsl:attribute name="id"><xsl:text/><xsl:value-of select="@lb" />_detail_<xsl:value-of select="position()" /></xsl:attribute>
+                   <tr valign="top"><th colspan="2"><xsl:text>Detail for request "</xsl:text><xsl:value-of select="@lb" /><xsl:text>" # </xsl:text><xsl:value-of select="@tn"/></th></tr>
+                   <tr><td class="key" width="10%">Time</td><td><xsl:call-template name="display-time"><xsl:with-param name="value" select="@t" /></xsl:call-template></td></tr>
+                   <tr><td class="key" width="10%">Latency</td><td><xsl:call-template name="display-time"><xsl:with-param name="value" select="@lt"/></xsl:call-template></td></tr>
+                   <tr><td class="key" width="10%">Bytes</td><td><xsl:value-of select="@by"/></td></tr>
+                   <tr><td class="key" width="10%">Sample Count</td><td><xsl:value-of select="@sc"/></td></tr>
+                   <tr><td class="key" width="10%">Error Count</td><td><xsl:value-of select="@ec"/></td></tr>
+                   <tr><td class="key" width="10%">Response Code</td><td><xsl:value-of select="@rc"/></td></tr>
+                   <tr><td class="key" width="10%">Response Message</td><td><xsl:value-of select="@rm"/></td></tr>
+                   <tr><td class="key" width="10%">Failure Message</td><td><xsl:value-of select="assertionResult/failureMessage"/></td></tr>
+                   <tr><td class="key" width="10%">Method/Url</td><td><xsl:value-of select="method"/><xsl:text> </xsl:text><xsl:value-of select="java.net.URL"/></td></tr>
+                   <tr><td class="key" width="10%">Query String</td><td><xsl:value-of select="queryString"/></td></tr>
+                   <tr><td class="key" width="10%">Cookies</td><td><xsl:value-of select="cookies"/></td></tr>
+                   <tr><td class="key" width="10%">Request Headers</td><td><xsl:value-of select="requestHeader"/></td></tr>
+                   <tr><td class="key" width="10%">Response Headers</td><td><xsl:value-of select="responseHeader"/></td></tr>
+                   <tr><td class="key" width="10%">Response Data</td><td><xsl:value-of select="responseData"/></td></tr>
+                   <tr><td class="key" width="10%">Response File</td><td><xsl:value-of select="responseFile"/></td></tr>
+            </table>
+        </xsl:for-each>          
+    </xsl:for-each>
 </xsl:template>
 
 <xsl:template name="min">
