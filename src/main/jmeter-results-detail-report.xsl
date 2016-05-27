@@ -49,7 +49,7 @@
                 .expand_link { position=absolute; right: 0px; width: 27px; top: 1px; height: 27px; }
                 .page_details { display: none; } 
                 .page_details_expanded { display: block; display/* hide this definition from  IE5/6 */: table-row; }
-                .key { min-width: 108px; }
+                .key { min-width: 108px; width: 15%; }
                 .detail { display: none; }
             </style>
             <script language="JavaScript"><![CDATA[
@@ -78,7 +78,7 @@
                             table.style.display = "none";
                         } else {
                             if (table.style.display == "none" || table.style.display == "") {
-                                table.style.display = "block";
+                                table.style.display = "table";
                             } else {
                                 table.style.display = "none";
                             }
@@ -449,21 +449,21 @@
             <table align="center" class="details detail" border="0" cellpadding="5" cellspacing="2" width="95%">
                 <xsl:attribute name="id"><xsl:text/><xsl:value-of select="@lb" />_detail_<xsl:value-of select="position()" /></xsl:attribute>
                    <tr valign="top"><th colspan="2"><xsl:text>Detail for request "</xsl:text><xsl:value-of select="@lb" /><xsl:text>" # </xsl:text><xsl:value-of select="@tn"/></th></tr>
-                   <tr><td class="key" width="10%">Time</td><td><xsl:call-template name="display-time"><xsl:with-param name="value" select="@t" /></xsl:call-template></td></tr>
-                   <tr><td class="key" width="10%">Latency</td><td><xsl:call-template name="display-time"><xsl:with-param name="value" select="@lt"/></xsl:call-template></td></tr>
-                   <tr><td class="key" width="10%">Bytes</td><td><xsl:value-of select="@by"/></td></tr>
-                   <tr><td class="key" width="10%">Sample Count</td><td><xsl:value-of select="@sc"/></td></tr>
-                   <tr><td class="key" width="10%">Error Count</td><td><xsl:value-of select="@ec"/></td></tr>
-                   <tr><td class="key" width="10%">Response Code</td><td><xsl:value-of select="@rc"/></td></tr>
-                   <tr><td class="key" width="10%">Response Message</td><td><xsl:value-of select="@rm"/></td></tr>
-                   <tr><td class="key" width="10%">Failure Message</td><td><xsl:value-of select="assertionResult/failureMessage"/></td></tr>
-                   <tr><td class="key" width="10%">Method/Url</td><td><xsl:value-of select="method"/><xsl:text> </xsl:text><xsl:value-of select="java.net.URL"/></td></tr>
-                   <tr><td class="key" width="10%">Query String</td><td><xsl:value-of select="queryString"/></td></tr>
-                   <tr><td class="key" width="10%">Cookies</td><td><xsl:value-of select="cookies"/></td></tr>
-                   <tr><td class="key" width="10%">Request Headers</td><td><xsl:value-of select="requestHeader"/></td></tr>
-                   <tr><td class="key" width="10%">Response Headers</td><td><xsl:value-of select="responseHeader"/></td></tr>
-                   <tr><td class="key" width="10%">Response Data</td><td><xsl:value-of select="responseData"/></td></tr>
-                   <tr><td class="key" width="10%">Response File</td><td><xsl:value-of select="responseFile"/></td></tr>
+                   <tr><td class="key">Time</td><td><xsl:call-template name="display-time"><xsl:with-param name="value" select="@t" /></xsl:call-template></td></tr>
+                   <tr><td class="key">Latency</td><td><xsl:call-template name="display-time"><xsl:with-param name="value" select="@lt"/></xsl:call-template></td></tr>
+                   <tr><td class="key">Bytes</td><td><xsl:value-of select="@by"/></td></tr>
+                   <tr><td class="key">Sample Count</td><td><xsl:value-of select="@sc"/></td></tr>
+                   <tr><td class="key">Error Count</td><td><xsl:value-of select="@ec"/></td></tr>
+                   <tr><td class="key">Response Code</td><td><xsl:value-of select="@rc"/></td></tr>
+                   <tr><td class="key">Response Message</td><td><xsl:value-of select="@rm"/></td></tr>
+                   <tr><td class="key">Failure Message</td><td><xsl:value-of select="assertionResult/failureMessage"/></td></tr>
+                   <tr><td class="key">Method/Url</td><td><xsl:value-of select="method"/><xsl:text> </xsl:text><xsl:value-of select="java.net.URL"/></td></tr>
+                   <tr><td class="key">Query String</td><td><xsl:value-of select="queryString"/></td></tr>
+                   <tr><td class="key">Cookies</td><td><xsl:value-of select="cookies"/></td></tr>
+                   <tr><td class="key">Request Headers</td><td><xsl:value-of select="requestHeader"/></td></tr>
+                   <tr><td class="key">Response Headers</td><td><xsl:value-of select="responseHeader"/></td></tr>
+                   <tr><td class="key">Response Data</td><td><xsl:value-of select="responseData"/></td></tr>
+                   <tr><td class="key">Response File</td><td><xsl:value-of select="responseFile"/></td></tr>
             </table>
         </xsl:for-each>          
     </xsl:for-each>
