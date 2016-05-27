@@ -46,11 +46,11 @@
                 h3 { margin-bottom: 0.5em; font: bold 115% verdana,arial,helvetica }
                 .Failure { font-weight:bold; color:red; }
                 img { border-width: 0px; }
-                .expand_link { position=absolute; right: 0px; width: 27px; top: 1px; height: 27px; }
+                .expand_link { position: absolute; right: 0px; width: 27px; top: 1px; height: 27px; }
                 .page_details { display: none; } 
                 .page_details_expanded { display: block; display/* hide this definition from  IE5/6 */: table-row; }
                 .key { min-width: 108px; width: 15%; }
-                .detail { display: none; }
+                .detail, #tdetail { display: none; }
             </style>
             <script language="JavaScript"><![CDATA[
                 function toggle_details(details_id) {
@@ -71,6 +71,7 @@
                     } 
                 };
                 function toggle_detail(detail_id) {
+                    var objTitle = document.getElementById("tdetail");
                     var arrTable = document.getElementsByClassName("detail");
                     for (var i=0; i<arrTable.length; i++) {
                         var table = arrTable[i];
@@ -79,8 +80,10 @@
                         } else {
                             if (table.style.display == "none" || table.style.display == "") {
                                 table.style.display = "table";
+                                objTitle.style.display = "block";
                             } else {
                                 table.style.display = "none";
+                                objTitle.style.display = "none";
                             }
                         }
                     }
@@ -444,11 +447,12 @@
 </xsl:template>
 
 <xsl:template name="detail">
+    <h2 id="tdetail">Details</h2>
     <xsl:for-each select="/testResults/*[not(@lb = preceding::*/@lb)]">
         <xsl:for-each select="/testResults/*[@lb = current()/@lb]">
             <table align="center" class="details detail" border="0" cellpadding="5" cellspacing="2" width="95%">
                 <xsl:attribute name="id"><xsl:text/><xsl:value-of select="@lb" />_detail_<xsl:value-of select="position()" /></xsl:attribute>
-                   <tr valign="top"><th colspan="2"><xsl:text>Detail for request "</xsl:text><xsl:value-of select="@lb" /><xsl:text>" # </xsl:text><xsl:value-of select="@tn"/></th></tr>
+                   <tr valign="top"><th colspan="2"><xsl:value-of select="@lb" /><xsl:text> # </xsl:text><xsl:value-of select="@tn"/></th></tr>
                    <tr><td class="key">Time</td><td><xsl:call-template name="display-time"><xsl:with-param name="value" select="@t" /></xsl:call-template></td></tr>
                    <tr><td class="key">Latency</td><td><xsl:call-template name="display-time"><xsl:with-param name="value" select="@lt"/></xsl:call-template></td></tr>
                    <tr><td class="key">Bytes</td><td><xsl:value-of select="@by"/></td></tr>
