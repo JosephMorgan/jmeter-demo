@@ -8,7 +8,8 @@
     <name>jmeter-demo</name>
     <url>http://maven.apache.org</url>
     <properties>
-        <jmeter.fileName>TestAPI</jmeter.fileName>
+        <jmeter.fileName>v2ex</jmeter.fileName>
+        <test.type>apitest</test.type>
     </properties>
     <build>
         <plugins>
@@ -48,7 +49,7 @@
                     <arguments>
                         <argument>-o</argument>
                         <argument>target/jmeter/results/${jmeter.fileName}.html</argument>
-                        <argument>src/main/jmeter-results-detail-report.xsl</argument>
+                        <argument>src/main/jmeter-results-report-${test.type}.xsl</argument>
                         <argument>target/jmeter/results/${jmeter.fileName}.jtl</argument>
                     </arguments>
                 </configuration>
